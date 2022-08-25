@@ -13,8 +13,8 @@
       </el-form-item>
       <el-form-item prop="code">
         <el-input v-model="ruleForm.code" placeholder="验证码" style="width: 250px;margin-right: 5px"></el-input>
-        <el-image :src="captchaUrl" fit="fit" @click="updateCaptcha"
-                  style="width: 95px;height: 40px;overflow: unset"></el-image>
+        <img :src="captchaUrl"  @click="updateCaptcha"
+                  style="width: 95px;height: 40px;"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" style="width: 100%;" @click="submitForm('ruleForm')">登 陆</el-button>
@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       loading:false,
-      captchaUrl: '/captcha?time=' + new Date(),
+      captchaUrl: '/captcha',
       ruleForm: {
         username: 'admin',
         password: '123123',
@@ -62,6 +62,9 @@ export default {
       }
     }
   },
+  created() {
+
+  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -84,6 +87,7 @@ export default {
       })
     },
     updateCaptcha () {
+      console.log("123123")
       this.captchaUrl = '/captcha?time=' + new Date()
     }
   }
@@ -92,7 +96,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style scoped >
 .login {
   border-radius: 15px;
   background-clip: padding-box;
@@ -102,5 +106,17 @@ export default {
   background: #fff;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
+
+
+}
+
+.login /deep/ .el-image {
+  object-fit: contain;
+  overflow: hidden;
+
+}
+
+.login /deep/ .el-form-item__content {
+  display: flex;
 }
 </style>
